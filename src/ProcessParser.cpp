@@ -58,10 +58,10 @@ string ProcessParser::GetCpuPercent(string pid){
     float result;
 
     //Get data from pid path, and put into a vector of strings   
-    ifstream stream = Util::GetStream(Path::basePath() + pid + Path::statPath());
+    ifstream stream = Util::GetStream(Path::basePath() + pid + "/" + Path::statPath());
     getline(stream, line);
     string str = line;
-    istringstream buf(line);
+    istringstream buf(str);
     istream_iterator<string> beg(buf), end;
     vector<string> values(beg, end);
 
@@ -81,4 +81,22 @@ string ProcessParser::GetCpuPercent(string pid){
     result = 100.0 * ((total_time/freq)/seconds);
 
     return to_string(result);
+}
+
+/*Get the systems frequency for caculating the process uptime*/
+string ProcessParser::GetProcUpTime(string pid){
+    string line;
+    string value;
+    float result;
+
+    ifstream stream = Util::GetStream(Path::basePath() + pid + "/" + Path::statPath());
+    getline(stream, line);
+    string str = line;
+    istringstream buf(str);
+    istream_iterator<string> beg(buf), end;
+    vector<string> values(beg, end);
+
+    return to_string(float(stof(values[13]/sysconf(_SC_CLK_TCK))));
+
+
 }
