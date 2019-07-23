@@ -31,7 +31,6 @@ string ProcessParser::GetVmSize(string pid){
     string line;
     //Declaring search attribute for file
     string name = "VmData";
-    string value;
     float result;
 
     //Opening stream for specific file
@@ -54,7 +53,6 @@ string ProcessParser::GetVmSize(string pid){
 /*Parse data from /proc to calculate cpu usauge of certain processes */
 string ProcessParser::GetCpuPercent(string pid){
     string line;
-    string value;
     float result;
 
     //Get data from pid path, and put into a vector of strings   
@@ -86,9 +84,7 @@ string ProcessParser::GetCpuPercent(string pid){
 /*Get the systems frequency for caculating the process uptime*/
 string ProcessParser::GetProcUpTime(string pid){
     string line;
-    string value;
-    float result;
-
+    
     ifstream stream = Util::GetStream(Path::basePath() + pid + "/" + Path::statPath());
     getline(stream, line);
     string str = line;
@@ -96,7 +92,21 @@ string ProcessParser::GetProcUpTime(string pid){
     istream_iterator<string> beg(buf), end;
     vector<string> values(beg, end);
 
-    return to_string(float(stof(values[13]/sysconf(_SC_CLK_TCK))));
+    return to_string(float(stof(values[13]) / sysconf(_SC_CLK_TCK)));
+}
 
+/*Get system uptime from /proc */
+long int ProcessParser::GetSysUpTime(){
+    string line;
 
+    //Get uptime from uptime path 
+    ifstream stream = Util::GetStream(Path::basePath() + Path::upTimePath());
+
+    getline(stream, line);
+    string str = line;
+    istringstream buf(str);
+    istream_iterator<string> beg(buf), end;
+    vector<string> values(beg, end);
+
+    return stoi(values[0]);
 }
