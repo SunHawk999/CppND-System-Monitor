@@ -202,3 +202,22 @@ int ProcessParser::GetNumberofCores(){
     }
     return 0;
 }
+
+/*Read raw data from /proc/stat file, which contains info on overall cpu usage,
+as well as stats for individual cores. This will be used by other functions*/
+vector<string> ProcessParser::GetSysCpuPercent(string coreNumber){
+    string line;
+    string name = "cpu" + coreNumber;
+    ifstream stream = Util::GetStream(Path::basePath() + Path::statPath());
+
+    while(getline(stream, line)){
+        if(line.compare(0, name.size(),name) == 0){
+            istringstream buf(line);
+            istream_iterator<string> beg(buf), end;
+            vector<string> values(beg, end);
+
+            return values;
+        }
+    }
+    return vector<string>();
+}
