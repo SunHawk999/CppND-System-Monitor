@@ -39,6 +39,8 @@ class ProcessParser{
         static int GetTotalNumberofRunningProcesses();
         static int GetTotalNumberofProcesses();
         static string GetOsName();
+        static float GetSysActiveCpuTime(vector<string> values);
+        static float GetSysIdleCpuTime(vector<string> values);
         static string PrintCpuStats(vector<string> values1, vector<string> values2);
 
 };

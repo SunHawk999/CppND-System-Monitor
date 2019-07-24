@@ -4,10 +4,21 @@
 
 using namespace std;
 
-//Need an enum class?
+
+enum CPUStates {
+    S_USER = 1,
+    S_NICE,
+    S_SYSTEM,
+    S_IDLE,
+    S_IOWAIT,
+    S_IRQ,
+    S_SOFTIRQ,
+    S_STEAL,
+    S_GUEST,
+    S_GUEST_NICE 
+};
 
 //Need to know where these paths lead to and where they come from
-
 //Use these functions in order to call these strings
 class Path{
     public:
@@ -15,7 +26,7 @@ class Path{
             return "/proc/";
         }
 
-        static string commandLine(){
+        static string cmdPath(){
             return "/cmdline";
         }
 

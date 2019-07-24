@@ -181,7 +181,7 @@ vector<string> ProcessParser::GetPidList(){
 string ProcessParser::GetCmd(string pid){
     string line;
     //TODO: Look into what a cmdPath would be, could it be the cmdLine, or something else?
-    ifstream stream = Util::GetStream(Path::basePath() + pid + Path::commandLine());
+    ifstream stream = Util::GetStream(Path::basePath() + pid + Path::cmdPath());
     getline(stream, line);
     return line;
 
@@ -220,4 +220,36 @@ vector<string> ProcessParser::GetSysCpuPercent(string coreNumber){
         }
     }
     return vector<string>();
+}
+
+/*Caculate active cpu time from GetSysCpuPercent,
+
+TODO: Figure out how GetSysCpuPercent goes into this */
+float ProcessParser::GetSysActiveCpuTime(vector<string> values){
+
+    return (stof(values[S_USER]) +
+            stof(values[S_NICE]) +
+            stof(values[S_IRQ]) + 
+            stof(values[S_SOFTIRQ]) +
+            stof(values[S_STEAL]) + 
+            stof(values[S_GUEST]) + 
+            stof(values[S_GUEST_NICE]));
+}
+
+/*Calculate idle cpu time from GetSysCpuPercent */
+float ProcessParser::GetSysIdleCpuTime(vector<string> values){
+    return (stof(values[S_IDLE]) + 
+            stof(values[S_IOWAIT]));
+}
+
+/*Calculates cpu usuage, either overall or for a selected core
+args: previous and current time */
+string ProcessParser::PrintCpuStats(vector<string> prevTime, vector<string> currTime){
+
+    float activeTime = GetSysActiveCpuTime(currTime) - GetSysActiveCpuTime(prevTime);
+    float idleTime = GetSysIdleCpuTime(currTime) - GetSysIdleCpuTime(prevTime);
+    float totalTime = activeTime + idleTime;
+    float result = 100.0*(activeTime / totalTime);
+    return to_string(result);
+
 }
