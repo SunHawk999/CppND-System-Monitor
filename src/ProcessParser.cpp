@@ -148,4 +148,41 @@ string ProcessParser::GetProcUser(string pid){
 
 vector<string> ProcessParser::GetPidList(){
 
+    DIR* dir;
+
+    //Scan /proc dir for all directories with numbers as their names
+    //If a found directory has numbers for their name, then store the name into a
+    //a vector as a list of machine pids
+    vector<string> storedPids;
+    if(!(dir = opendir("/proc"))){
+        throw runtime_error(strerror(errno));
+    }
+
+    while(dirent* dirp = readdir(dir)){
+        //is this a directory?
+        if(dirp->d_type != DT_DIR){
+            continue;
+        }
+
+        //Is every character in the name a digit?
+        if(all_of(dirp->d_name, dirp->d_name + strlen(dirp->d_name), [](char c) {return isdigit(c); })){
+            storedPids.push_back(dirp->d_name);
+        }
+    }
+
+    //Validating process of directory closing
+    if(closedir(dir)){
+        throw runtime_error(strerror(errno));
+    }
+    return storedPids;
+}
+
+//Retrieve command that executed the process
+string ProcessParser::GetCmd(string pid){
+    string line;
+    //TODO: Look into what a cmdPath would be, could it be the cmdLine, or something else?
+    ifstream stream = Util::GetStream(Path::basePath() + pid + Path::commandLine());
+    getline(stream, line);
+    return line;
+
 }
