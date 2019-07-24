@@ -186,3 +186,19 @@ string ProcessParser::GetCmd(string pid){
     return line;
 
 }
+
+//Retrieve the number of CPU cores of the host
+int ProcessParser::GetNumberofCores(){
+    string line;
+    string name;
+    ifstream stream = Util::GetStream(Path::basePath() + "cpuinfo");
+    while(getline(stream, line)){
+        if(line.compare(0, name.size(), name) == 0){
+            istringstream buf(line);
+            istream_iterator<string> beg(buf), end;
+            vector<string> values(beg, end);
+            return stoi(values[3]);
+        }
+    }
+    return 0;
+}

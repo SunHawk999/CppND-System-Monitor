@@ -34,7 +34,9 @@ class ProcessParser{
         static vector<string> GetSysCpuPercent(string coreNumber = "");
         static float GetSysRamPercent();
         static string GetSysKernelVersion();
+        static int GetNumberofCores();
         static int GetTotalThreads();
+        static int GetTotalNumberofRunningProcesses();
         static int GetTotalNumberofProcesses();
         static string GetOsName();
         static string PrintCpuStats(vector<string> values1, vector<string> values2);
