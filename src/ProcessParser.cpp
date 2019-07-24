@@ -145,3 +145,7 @@ string ProcessParser::GetProcUser(string pid){
     }
     return "";
 }
+
+vector<string> ProcessParser::GetPidList(){
+
+}
