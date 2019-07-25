@@ -357,3 +357,20 @@ int ProcessParser::GetTotalThreads(){
     }
     return result;
 }
+
+int ProcessParser::GetTotalNumberofProcesses(){
+    string line;
+    int result = 0;
+    string name = "processes";
+    ifstream stream = Util::GetStream(Path::basePath() + Path::statPath());
+    while(getline(stream, line)){
+        if(line.compare(0, line.size(), name) == 0){
+            istringstream buf(line);
+            istream_iterator<string> beg(buf), end;
+            vector<string> values(beg, end);
+            result += stoi(values[1]);
+            break;
+        }
+    }
+    return result;
+}
