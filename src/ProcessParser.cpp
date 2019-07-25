@@ -297,3 +297,20 @@ float ProcessParser::GetSysRamPercent(){
     //Calculate usuage
     return float(100.0 * (1-(free_mem / (total_mem - buffers))));
 }
+
+/*Get data on kernel version */
+string ProcessParser::GetSysKernelVersion(){
+    string line;
+    string name = "Linux Version:";
+
+    ifstream stream = Util::GetStream(Path::basePath() + Path::versionPath());
+    while(getline(stream, line)){
+        if(line.compare(0, name.size(), name) == 0){
+            istringstream buf(line);
+            istream_iterator<string> beg(buf), end;
+            vector<string> values;
+            return values[2];
+        }
+    }
+    return "";
+}
