@@ -332,3 +332,28 @@ string ProcessParser::GetOsName(){
     }
     return "";
 }
+
+/*Calculate total thread count, rather than reading it from a 
+single file */
+int ProcessParser::GetTotalThreads(){
+    string line;
+    int result = 0;
+    string name = "Threads:";
+    vector<string>_list = ProcessParser::GetPidList();
+
+    for(int i = 0; i<_list.size(); i++){
+        string pid = _list[i];
+        //Getting every process and reading their number of threads
+        ifstream stream = Util::GetStream(Path::basePath() + pid + Path::statusPath());
+        while(getline(stream, line)){
+            if(line.compare(0, name.size(), name) == 0){
+                istringstream buf(line);
+                istream_iterator<string> beg(buf), end;
+                vector<string> values(beg, end);
+                result += stoi(values[1]);
+                break;
+            }
+        }
+    }
+    return result;
+}
