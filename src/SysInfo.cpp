@@ -86,3 +86,18 @@ void SysInfo::SetAttributes(){
     this->lastCpuStats = this->currentCpuStats;
     this->SetCpuCoresStats();
 }
+
+/*Creates a string that represents a progress bar */
+vector<string> SysInfo::GetCoresStats() const{
+    vector<string> result = vector<string>();
+    for(int i = 0; i < this->coreStats.size(); i++){
+        string temp = ("cpu" + to_string(i) + ": ");
+        float check = stof(this->coreStats[i]);
+        if(!check || this->coreStats[i] == "nan"){
+            return vector<string>();
+        }
+        temp += Util::getProgressBar(this->coreStats[i]);
+        result.push_back(temp);
+    }
+    return result;
+}
