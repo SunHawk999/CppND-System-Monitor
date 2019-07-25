@@ -72,3 +72,17 @@ void SysInfo::SetCpuCoresStats(){
     }
     this->lastCpuCoresStats = this->currentCpuCoresStats;
 }
+
+/*Initialize or refresh an object */
+void SysInfo::SetAttributes(){
+    //Getting parsed data
+    this->memPercent = ProcessParser::GetSysRamPercent();
+    this->upTime = ProcessParser::GetSysUpTime();
+    this->totalProc = ProcessParser::GetTotalNumberofProcesses();
+    this->runningProc = ProcessParser::GetTotalNumberofRunningProcesses();
+    this->threads = ProcessParser::GetTotalThreads();
+    this->currentCpuStats = ProcessParser::GetSysCpuPercent();
+    this->cpuPercent = ProcessParser::PrintCpuStats(this->lastCpuStats, this->currentCpuStats);
+    this->lastCpuStats = this->currentCpuStats;
+    this->SetCpuCoresStats();
+}
