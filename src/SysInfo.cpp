@@ -3,6 +3,7 @@
 
 #include "SysInfo.h"
 #include "ProcessParser.h"
+#include "util.h"
 
 using namespace std;
 
@@ -96,7 +97,7 @@ vector<string> SysInfo::GetCoresStats() const{
         if(!check || this->coreStats[i] == "nan"){
             return vector<string>();
         }
-        temp += Util::getProgressBar(this->coreStats[i]);
+        temp += Util::GetProgressBar(this->coreStats[i]);
         result.push_back(temp);
     }
     return result;
