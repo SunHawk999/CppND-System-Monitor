@@ -59,3 +59,16 @@ void SysInfo::GetOtherCores(int _size){
         this->lastCpuCoresStats[i] = ProcessParser::GetSysCpuPercent(to_string(i));
     }
 }
+
+/*Updates and creates new datasets for CPU calculation */
+void SysInfo::SetCpuCoresStats(){
+    //Getting data from files
+    for(int i = 0; i < this->currentCpuCoresStats.size(); i++){
+        this->currentCpuCoresStats[i] = ProcessParser::GetSysCpuPercent(to_string(i));
+    }
+    //After acquiring data, calculate every core percentage of usuage
+    for(int i = 0; i < this->currentCpuCoresStats.size(); i++){
+        this->coreStats[i] = ProcessParser::PrintCpuStats(this->lastCpuCoresStats[i], this->currentCpuCoresStats[i]);
+    }
+    this->lastCpuCoresStats = this->currentCpuCoresStats;
+}
