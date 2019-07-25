@@ -314,3 +314,21 @@ string ProcessParser::GetSysKernelVersion(){
     }
     return "";
 }
+
+/*Find the name of the operating system */
+string ProcessParser::GetOsName(){
+    string line;
+    string name = "PRETTY_NAME=";
+
+    ifstream stream = Util::GetStream("/etc/os-release");
+    while(getline(stream, line)){
+        if(line.compare(0, name.size(), name) == 0){
+            size_t found = line.find("=");
+            found++;
+            string result = line.substr(found);
+            result.erase(remove(result.begin(), result.end(), '"'), result.end());
+            return result;
+        }
+    }
+    return "";
+}
