@@ -1,8 +1,9 @@
-#pragma once
+#ifndef UTIL_H
+#define UTIL_H
 
-#include <string>
-#include <fstream>
-#include <iostream>
+//#include <string>
+//#include <fstream>
+//#include <iostream>
 
 using namespace std;
 
@@ -13,3 +14,5 @@ class Util {
         static string GetProgressBar(string percent);
         static ifstream GetStream(string path);
 };
+
+#endif

@@ -1,7 +1,8 @@
-#pragma once
+#ifndef SYSINFO_H
+#define SYSINFO_H 
 
-#include<vector>
-#include<string>
+//#include<vector>
+//#include<string>
 
 #include "ProcessParser.h"
 
@@ -49,3 +50,5 @@ class SysInfo{
         void SetCpuCoresStats();
         vector<string> GetCoresStats() const;
 };
+
+#endif

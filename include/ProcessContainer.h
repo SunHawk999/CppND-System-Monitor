@@ -1,5 +1,8 @@
-#include<string>
-#include<vector>
+#ifndef PROCESSCONTAINER_H
+#define PROCESSCONTAINER_H
+
+//#include<string>
+//#include<vector>
 
 #include "process.h"
 
@@ -15,4 +18,6 @@ class ProcessContainer{
     private:
         vector<Process>_list;
 };
+
+#endif
 

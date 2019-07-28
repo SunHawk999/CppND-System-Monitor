@@ -2,6 +2,10 @@
 #include "system.h"
 
 int main() {
-  System system;
-  NCursesDisplay::Display(system);
+  //Object that contains relevant methods and attributes regarding system details
+  SysInfo system;
+  //Object that contains list of current processes, Container for Process Class
+  ProcessContainer procs;
+
+  NCursesDisplay::PrintMain(system, procs);
 }

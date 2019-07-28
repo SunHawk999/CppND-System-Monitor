@@ -1,4 +1,5 @@
-#pragma once
+#ifndef PROCESSPARSER_H
+#define PROCESSPARSER_H
 
 #include <algorithm>
 #include <iostream>
@@ -44,3 +45,5 @@ class ProcessParser{
         static string PrintCpuStats(vector<string> values1, vector<string> values2);
 
 };
+
+#endif
