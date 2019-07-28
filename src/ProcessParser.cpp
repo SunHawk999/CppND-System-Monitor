@@ -262,7 +262,7 @@ float ProcessParser::GetSysRamPercent(){
     string name2 = "MemFree:";
     string name3 = "Buffers:";
     string value;
-    int result;
+    //int result;
 
     ifstream stream = Util::GetStream(Path::basePath() + Path::memInfoPath());
     float total_mem = 0;
@@ -341,7 +341,7 @@ int ProcessParser::GetTotalThreads(){
     string name = "Threads:";
     vector<string>_list = ProcessParser::GetPidList();
 
-    for(int i = 0; i<_list.size(); i++){
+    for(int i = 0; i<int(_list.size()); i++){
         string pid = _list[i];
         //Getting every process and reading their number of threads
         ifstream stream = Util::GetStream(Path::basePath() + pid + Path::statusPath());
