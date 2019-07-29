@@ -18,7 +18,7 @@
 #include <constants.h>
 
 #include "ProcessParser.h"
-#include "util.cpp"
+#include "util.h"
 
 using namespace std;
 

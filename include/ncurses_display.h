@@ -3,6 +3,7 @@
 
 #include "ProcessContainer.h"
 #include "SysInfo.h"
+#include "curses.h"
 
 namespace NCursesDisplay {
 void WriteSysInfoToConsole(SysInfo system, WINDOW* sys_win);
