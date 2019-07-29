@@ -107,8 +107,7 @@ long int ProcessParser::GetSysUpTime(){
     istringstream buf(str);
     istream_iterator<string> beg(buf), end;
     vector<string> values(beg, end);
-
-    return stoi(values[0]);
+    return stol(values[0]);
 }
 
 /*Get the process user from proc/[PID]/status */
@@ -190,7 +189,7 @@ string ProcessParser::GetCmd(string pid){
 //Retrieve the number of CPU cores of the host
 int ProcessParser::GetNumberofCores(){
     string line;
-    string name;
+    string name = "cpu cores";
     ifstream stream = Util::GetStream(Path::basePath() + "cpuinfo");
     while(getline(stream, line)){
         if(line.compare(0, name.size(), name) == 0){
@@ -369,6 +368,7 @@ int ProcessParser::GetTotalNumberofProcesses(){
             istream_iterator<string> beg(buf), end;
             vector<string> values(beg, end);
             result += stoi(values[1]);
+            
             break;
         }
     }
