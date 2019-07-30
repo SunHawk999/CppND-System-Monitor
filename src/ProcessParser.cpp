@@ -299,14 +299,14 @@ float ProcessParser::GetSysRamPercent(){
 /*Get data on kernel version */
 string ProcessParser::GetSysKernelVersion(){
     string line;
-    string name = "Linux Version ";
+    string name = "Linux version ";
 
     ifstream stream = Util::GetStream(Path::basePath() + Path::versionPath());
     while(getline(stream, line)){
         if(line.compare(0, name.size(), name) == 0){
             istringstream buf(line);
             istream_iterator<string> beg(buf), end;
-            vector<string> values;
+            vector<string> values(beg, end);
             return values[2];
         }
     }
