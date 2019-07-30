@@ -3,6 +3,7 @@
 #include <string>
 #include <thread>
 #include <vector>
+#include <iostream>
 
 #include "util.h"
 #include "ncurses_display.h"
@@ -59,7 +60,7 @@ void NCursesDisplay::PrintMain(SysInfo system, ProcessContainer process){
   int yMax, xMax;
   getmaxyx(stdscr, yMax, xMax);   //Get size of windows measured in lines
   WINDOW *sys_win = newwin(17, xMax-1, 0, 0);
-  WINDOW *proc_win = newwin(15, yMax-1, 18, 0);
+  WINDOW *proc_win = newwin(15, xMax-1, yMax-33, 0);
 
   init_pair(1, COLOR_BLUE, COLOR_BLACK);
   init_pair(2, COLOR_GREEN, COLOR_BLACK);

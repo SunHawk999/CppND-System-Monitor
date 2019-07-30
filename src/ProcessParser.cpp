@@ -179,7 +179,6 @@ vector<string> ProcessParser::GetPidList(){
 //Retrieve command that executed the process
 string ProcessParser::GetCmd(string pid){
     string line;
-    //TODO: Look into what a cmdPath would be, could it be the cmdLine, or something else?
     ifstream stream = Util::GetStream(Path::basePath() + pid + Path::cmdPath());
     getline(stream, line);
     return line;
@@ -300,7 +299,7 @@ float ProcessParser::GetSysRamPercent(){
 /*Get data on kernel version */
 string ProcessParser::GetSysKernelVersion(){
     string line;
-    string name = "Linux Version:";
+    string name = "Linux Version ";
 
     ifstream stream = Util::GetStream(Path::basePath() + Path::versionPath());
     while(getline(stream, line)){

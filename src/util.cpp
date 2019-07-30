@@ -25,7 +25,7 @@ string Util::ConvertToTime(long int input_seconds){
 50 bars are uniformely stretched 0 - 100% 
 meaning: every 2% is 1 bar. */
 string Util::GetProgressBar(string percent){
-    string result = "0% ";
+    string result = " [";
     int _size = 50;
     int boundaries = (stof(percent)/100) * _size;
 
@@ -38,7 +38,7 @@ string Util::GetProgressBar(string percent){
         }
     }
 
-    result += " " + percent.substr(0,5) + " /100%";
+    result += "] " + percent.substr(0,5) + " /100%";
     return result;
 }
 
