@@ -20,7 +20,7 @@ void NCursesDisplay::WriteSysInfoToConsole(SysInfo system, WINDOW* sys_window){
     wattron(sys_window, COLOR_PAIR(1));
     wprintw(sys_window, Util::GetProgressBar(system.GetCpuPercent()).c_str());
     wattroff(sys_window, COLOR_PAIR(1));
-    mvwprintw(sys_window, 5, 2, "Other_cores: ");
+    mvwprintw(sys_window, 5, 2, "Cores: ");
     wattron(sys_window, COLOR_PAIR(1));
     vector<string> val = system.GetCoresStats();
     for(int i = 0; i < int(val.size()); i++){

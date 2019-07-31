@@ -362,7 +362,7 @@ int ProcessParser::GetTotalNumberofProcesses(){
     string name = "processes";
     ifstream stream = Util::GetStream(Path::basePath() + Path::statPath());
     while(getline(stream, line)){
-        if(line.compare(0, line.size(), name) == 0){
+        if(line.compare(0, name.size(), name) == 0){
             istringstream buf(line);
             istream_iterator<string> beg(buf), end;
             vector<string> values(beg, end);
@@ -377,10 +377,10 @@ int ProcessParser::GetTotalNumberofProcesses(){
 int ProcessParser::GetTotalNumberofRunningProcesses(){
     string line;
     int result = 0;
-    string name = "procs_running";
+    string name = "procs_running ";
     ifstream stream = Util::GetStream(Path::basePath() + Path::statPath());
     while(getline(stream, line)){
-        if(line.compare(0, line.size(), name) == 0){
+        if(line.compare(0, name.size(), name) == 0){
             istringstream buf(line);
             istream_iterator<string> beg(buf), end;
             vector<string> values(beg, end);
