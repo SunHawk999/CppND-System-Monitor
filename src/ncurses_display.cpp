@@ -28,23 +28,23 @@ void NCursesDisplay::WriteSysInfoToConsole(SysInfo system, WINDOW* sys_window){
     }
     wattroff(sys_window, COLOR_PAIR(1));
     mvwprintw(sys_window, 10, 2, "Memory: ");
-    wattron(sys_window, COLOR_PAIR(1));
+    wattron(sys_window, COLOR_PAIR(2));
     wprintw(sys_window, Util::GetProgressBar(system.GetMemPercent()).c_str());
-    wattroff(sys_window, COLOR_PAIR(1));
-    mvwprintw(sys_window, 11, 2, ("Total_Processes: " + system.GetTotalProc()).c_str());
-    mvwprintw(sys_window, 12, 2, ("Running_Processes: " + system.GetRunningProc()).c_str());
-    mvwprintw(sys_window, 13, 2, ("Up_Time: " + Util::ConvertToTime(system.GetUpTime())).c_str());
+    wattroff(sys_window, COLOR_PAIR(2));
+    mvwprintw(sys_window, 12, 2, ("Total_Processes: " + system.GetTotalProc()).c_str());
+    mvwprintw(sys_window, 13, 2, ("Running_Processes: " + system.GetRunningProc()).c_str());
+    mvwprintw(sys_window, 14, 2, ("Up_Time: " + Util::ConvertToTime(system.GetUpTime())).c_str());
 }
 
 void NCursesDisplay::GetProcessListToConsole(ProcessContainer process, WINDOW* win){
     process.RefreshList();
     wattron(win, COLOR_PAIR(2));
     mvwprintw(win, 1, 2, "PID:");
-    mvwprintw(win, 1, 9, "User:");
-    mvwprintw(win, 1, 16, "Cpu[%]");
-    mvwprintw(win, 1, 26, "Ram[mB]");
-    mvwprintw(win, 1, 35, "Uptime:");
-    mvwprintw(win, 1, 44, "Cmd:");
+    mvwprintw(win, 1, 12, "User:");
+    mvwprintw(win, 1, 20, "Cpu[%]");
+    mvwprintw(win, 1, 32, "Ram[mB]");
+    mvwprintw(win, 1, 40, "Uptime:");
+    mvwprintw(win, 1, 50, "Cmd:");
     wattroff(win, COLOR_PAIR(2));
     vector<std::string> processes = process.GetList();
     for(int i = 0; i < 10; i++){
@@ -60,7 +60,7 @@ void NCursesDisplay::PrintMain(SysInfo system, ProcessContainer process){
   int yMax, xMax;
   getmaxyx(stdscr, yMax, xMax);   //Get size of windows measured in lines
   WINDOW *sys_win = newwin(17, xMax-1, 0, 0);
-  WINDOW *proc_win = newwin(15, xMax-1, yMax-33, 0);
+  WINDOW *proc_win = newwin(15, xMax-1, yMax-(ProcessParser::GetNumberofCores())-29, 0);
 
   init_pair(1, COLOR_BLUE, COLOR_BLACK);
   init_pair(2, COLOR_GREEN, COLOR_BLACK);
