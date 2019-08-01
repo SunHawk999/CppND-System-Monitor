@@ -50,7 +50,8 @@ string ProcessParser::GetVmSize(string pid){
     return to_string(result);
 }
 
-/*Parse data from /proc to calculate cpu usauge of certain processes */
+/*Parse data from /proc to calculate cpu usauge of certain processes 
+TODO: Something wrong with this?*/
 string ProcessParser::GetCpuPercent(string pid){
     string line;
     float result;
@@ -221,8 +222,7 @@ vector<string> ProcessParser::GetSysCpuPercent(string coreNumber){
 }
 
 /*Caculate active cpu time from GetSysCpuPercent,
-
-TODO: Figure out how GetSysCpuPercent goes into this */
+*/
 float ProcessParser::GetSysActiveCpuTime(vector<string> values){
 
     return (stof(values[S_USER]) +

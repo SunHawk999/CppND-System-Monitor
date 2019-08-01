@@ -40,11 +40,11 @@ void NCursesDisplay::GetProcessListToConsole(ProcessContainer process, WINDOW* w
     process.RefreshList();
     wattron(win, COLOR_PAIR(2));
     mvwprintw(win, 1, 2, "PID:");
-    mvwprintw(win, 1, 12, "User:");
-    mvwprintw(win, 1, 20, "Cpu[%]");
-    mvwprintw(win, 1, 32, "Ram[mB]");
-    mvwprintw(win, 1, 40, "Uptime:");
-    mvwprintw(win, 1, 50, "Cmd:");
+    mvwprintw(win, 1, 10, "User:");
+    mvwprintw(win, 1, 18, "Cpu[%]");
+    mvwprintw(win, 1, 26, "Ram[gB]");
+    mvwprintw(win, 1, 36, "Uptime:");
+    mvwprintw(win, 1, 45, "Cmd:");
     wattroff(win, COLOR_PAIR(2));
     vector<std::string> processes = process.GetList();
     for(int i = 0; i < 10; i++){
@@ -60,7 +60,7 @@ void NCursesDisplay::PrintMain(SysInfo system, ProcessContainer process){
   int yMax, xMax;
   getmaxyx(stdscr, yMax, xMax);   //Get size of windows measured in lines
   WINDOW *sys_win = newwin(17, xMax-1, 0, 0);
-  WINDOW *proc_win = newwin(15, xMax-1, yMax-(ProcessParser::GetNumberofCores())-29, 0);
+  WINDOW *proc_win = newwin(15, xMax-1, yMax-(ProcessParser::GetNumberofCores())-28, 0);
 
   init_pair(1, COLOR_BLUE, COLOR_BLACK);
   init_pair(2, COLOR_GREEN, COLOR_BLACK);
